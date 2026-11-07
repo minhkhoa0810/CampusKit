@@ -1,0 +1,3 @@
+{{- with .Params.reviews -}}{{- $sum := 0 -}}{{- range . -}}{{- $sum = add $sum .stars -}}{{- end -}}
+<span class="rating" title="Điểm đánh giá trung bình">★ {{ printf "%.1f" (div (float $sum) (float (len .))) }} <small>({{ len . }})</small></span>
+{{- end -}}

@@ -1,0 +1,2 @@
+Giai nen de len thu muc goc cua project (ghi de khi duoc hoi).
+Xoa file cu: content/san-pham/may-tinh-cam-tay (khong co duoi .md). Ban moi la may-tinh-cam-tay.md.

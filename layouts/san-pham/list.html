@@ -1,0 +1,23 @@
+{{ define "main" }}
+<h1>{{ .Title }}</h1>
+<div class="toolbar">
+  <input id="search" type="search" placeholder="Tìm sản phẩm...">
+  <select id="category">
+    <option value="">Tất cả danh mục</option>
+    {{ $cats := slice }}
+    {{ range .Pages }}{{ with .Params.category }}{{ $cats = $cats | append . }}{{ end }}{{ end }}
+    {{ range $cats | uniq }}<option value="{{ . }}">{{ . }}</option>{{ end }}
+  </select>
+  <select id="sort" aria-label="Sắp xếp">
+    <option value="">Sắp xếp: Mặc định</option>
+    <option value="asc">Giá tăng dần</option>
+    <option value="desc">Giá giảm dần</option>
+    <option value="name">Tên A - Z</option>
+  </select>
+  <button type="button" class="btn ghost" id="wish-filter" aria-pressed="false">♥ Đã lưu (<span id="wish-count">0</span>)</button>
+</div>
+<div class="grid" id="product-grid">
+  {{ range .Pages }}{{ partial "product-card.html" . }}{{ end }}
+</div>
+<p id="no-result" class="center muted" hidden>Không tìm thấy sản phẩm phù hợp.</p>
+{{ end }}

@@ -1,0 +1,11 @@
+{{ define "main" }}
+<h1>{{ .Title }}</h1>
+<p class="note">Đơn hàng chỉ được lưu trong trình duyệt của bạn (mô phỏng), nên chỉ tra cứu được các đơn đã đặt trên thiết bị này. Trạng thái đơn tự chạy theo thời gian để bạn xem thử.</p>
+<div class="toolbar">
+  <input id="order-code" type="search" placeholder="Nhập mã đơn (VD: CK123456)">
+  <button type="button" class="btn ghost" id="order-clear">Xoá lịch sử</button>
+</div>
+<div id="order-list"></div>
+<p id="order-empty" class="center muted" hidden></p>
+<p class="center"><a class="btn" href="{{ "san-pham/" | relURL }}">Tiếp tục mua sắm</a></p>
+{{ end }}

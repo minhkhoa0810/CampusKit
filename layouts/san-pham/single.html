@@ -1,0 +1,46 @@
+{{ define "main" }}
+{{ $id := .File.BaseFileName }}
+<article class="detail">
+  <img src="{{ .Params.image | relURL }}" alt="{{ .Title }}">
+  <div>
+    <p class="muted">{{ .Params.category }}{{ with .Params.badge }}<span class="badge static">{{ . }}</span>{{ end }}</p>
+    <h1>{{ .Title }}</h1>
+    <p>{{ partial "rating.html" . }}</p>
+    <p class="price big vnd">{{ .Params.price }}</p>
+    <p><strong>{{ .Params.summary }}</strong></p>
+    <div>{{ .Content }}</div>
+    <div class="actions">
+      <button class="btn add-to-cart" data-id="{{ $id }}" data-name="{{ .Title }}" data-price="{{ .Params.price }}" data-image="{{ .Params.image | relURL }}">Thêm vào giỏ</button>
+      <button class="btn alt buy-now" data-id="{{ $id }}" data-name="{{ .Title }}" data-price="{{ .Params.price }}" data-image="{{ .Params.image | relURL }}">Mua ngay</button>
+      <button type="button" class="btn ghost wish wish-lg" data-id="{{ $id }}" aria-pressed="false"><span class="heart" aria-hidden="true">♡</span> <span class="wish-label">Lưu vào yêu thích</span></button>
+    </div>
+    <p><a href="{{ "san-pham/" | relURL }}">← Quay lại danh sách</a></p>
+  </div>
+</article>
+
+{{ with .Params.reviews }}
+<section class="reviews">
+  <h2>Đánh giá</h2>
+  {{ range . }}
+  <blockquote class="review">
+    <p class="stars" aria-label="{{ .stars }} trên 5 sao">{{ strings.Repeat .stars "★" }}{{ strings.Repeat (sub 5 .stars) "☆" }}</p>
+    <p>{{ .text }}</p>
+    <footer>- {{ .name }}</footer>
+  </blockquote>
+  {{ end }}
+  <p class="muted"><small>Đánh giá mang tính minh hoạ cho đồ án.</small></p>
+</section>
+{{ end }}
+
+{{ $cur := . }}
+{{ $cat := .Params.category }}
+{{ $all := where site.RegularPages "Section" "san-pham" }}
+{{ $n := 0 }}
+<section class="related">
+  <h2>Có thể bạn cũng cần</h2>
+  <div class="grid">
+    {{ range where $all "Params.category" $cat }}{{ if and (ne .RelPermalink $cur.RelPermalink) (lt $n 3) }}{{ partial "product-card.html" . }}{{ $n = add $n 1 }}{{ end }}{{ end }}
+    {{ range where $all "Params.category" "ne" $cat }}{{ if and (ne .RelPermalink $cur.RelPermalink) (lt $n 3) }}{{ partial "product-card.html" . }}{{ $n = add $n 1 }}{{ end }}{{ end }}
+  </div>
+</section>
+{{ end }}

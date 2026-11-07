@@ -1,0 +1,11 @@
+<header class="site-header">
+     <a class="brand" href="{{ site.Home.RelPermalink }}">
+    <img src="{{ "images/logo.jpg" | relURL }}" alt="Logo CampusKit" height="44" style="width:auto">
+    <span>{{ site.Title }}</span>
+  </a>
+  <nav>
+    {{ range site.Menus.main }}<a href="{{ .URL | relURL }}">{{ .Name }}</a>{{ end }}
+    <button type="button" class="theme-toggle" aria-label="Chuyển giao diện sáng/tối" title="Sáng / Tối">🌙</button>
+    <a class="cart-link" href="{{ "gio-hang/" | relURL }}">🛒 <span class="cart-count">0</span></a>
+  </nav>
+</header>

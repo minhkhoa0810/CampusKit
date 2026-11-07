@@ -1,0 +1,59 @@
+{{ define "main" }}
+<section class="hero">
+  <img src="{{ "images/logo.jpg" | relURL }}" alt="" height="140" style="width:auto;max-width:100%">
+  <h1>{{ site.Title }}</h1>
+  <p class="slogan">{{ site.Params.slogan }}</p>
+  <div class="lead">{{ .Content }}</div>
+  <a class="btn" href="{{ "san-pham/" | relURL }}">Xem sản phẩm</a>
+</section>
+
+{{ with site.Params.saleEnd }}
+<section class="flash" id="flash" data-end="{{ . }}" hidden>
+  <span>⚡ {{ site.Params.saleText | default "Flash sale sinh viên" }}</span>
+  <span class="timer" id="flash-timer">--:--:--</span>
+</section>
+{{ end }}
+
+<section class="perks">
+  <div><h3>⚡ Đặt nhanh</h3><p>Chọn đồ và thanh toán ngay trên điện thoại.</p></div>
+  <div><h3>🎓 Giá sinh viên</h3><p>Combo tiết kiệm, có mã giảm giá.</p></div>
+  <div><h3>📍 Nhận tại trường</h3><p>Giao tận lớp hoặc nhận ở điểm hẹn.</p></div>
+</section>
+
+<a class="promo-strip" href="{{ "combo/" | relURL }}">
+  <span>🎒 <strong>Combo tiết kiệm</strong>: mua theo bộ rẻ hơn mua lẻ</span>
+  <span>Xem combo →</span>
+</a>
+
+<section class="picker" id="picker">
+  <h2>Chọn nhanh theo bạn</h2>
+  <div class="toolbar">
+    <select id="pk-year" aria-label="Năm học">
+      <option value="">Bạn đang học năm...</option>
+      <option value="nam1">Năm nhất</option>
+      <option value="nam23">Năm 2 - 3</option>
+      <option value="namcuoi">Năm cuối (đồ án, khoá luận)</option>
+    </select>
+    <select id="pk-major" aria-label="Ngành học">
+      <option value="">Ngành học...</option>
+      <option value="cntt">CNTT và Kỹ thuật</option>
+      <option value="khtn">Khoa học cơ bản</option>
+      <option value="xh">Môi trường,địa chất,....
+      </option>
+    </select>
+  </div>
+  <p id="pk-hint" class="muted">Chọn năm học và ngành để xem đồ nên mua.</p>
+  <div class="grid" id="pk-result"></div>
+  <div id="pk-pool" hidden>
+    {{ range where site.RegularPages "Section" "san-pham" }}{{ partial "product-card.html" . }}{{ end }}
+  </div>
+</section>
+
+<section>
+  <h2>Sản phẩm nổi bật</h2>
+  <div class="grid">
+    {{ range first 3 (where site.RegularPages "Section" "san-pham") }}{{ partial "product-card.html" . }}{{ end }}
+  </div>
+  <p class="center"><a href="{{ "san-pham/" | relURL }}">Xem tất cả sản phẩm →</a></p>
+</section>
+{{ end }}

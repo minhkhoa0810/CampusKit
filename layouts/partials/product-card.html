@@ -1,0 +1,15 @@
+{{- $id := .File.BaseFileName -}}
+<article class="card" data-id="{{ $id }}" data-name="{{ .Title | lower }}" data-category="{{ .Params.category }}" data-price="{{ .Params.price }}" data-years="{{ with .Params.years }}{{ delimit . "," }}{{ end }}" data-majors="{{ with .Params.majors }}{{ delimit . "," }}{{ end }}">
+  <div class="card-media">
+    <a href="{{ .RelPermalink }}" tabindex="-1"><img src="{{ .Params.image | relURL }}" alt="{{ .Title }}" loading="lazy"></a>
+    {{ with .Params.badge }}<span class="badge">{{ . }}</span>{{ end }}
+    <button type="button" class="wish" data-id="{{ $id }}" aria-pressed="false" aria-label="Lưu vào yêu thích"><span class="heart" aria-hidden="true">♡</span></button>
+  </div>
+  <a href="{{ .RelPermalink }}"><h3>{{ .Title }}</h3></a>
+  {{ partial "rating.html" . }}
+  <p class="muted">{{ .Params.summary }}</p>
+  <div class="card-bottom">
+    <span class="price vnd">{{ .Params.price }}</span>
+    <button class="btn add-to-cart" data-id="{{ $id }}" data-name="{{ .Title }}" data-price="{{ .Params.price }}" data-image="{{ .Params.image | relURL }}">Thêm vào giỏ</button>
+  </div>
+</article>
